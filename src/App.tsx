@@ -64,6 +64,7 @@ const initialMenuItems: MenuItem[] = [
     description: 'Crispy dosa with spiced potato filling and chutneys',
     available: true,
   },
+   {
      "id": "1",
     "name": "Veg Puff",
     "price": 25,
