@@ -40,7 +40,7 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
               <span className="text-lg">Last Updated: {formatTimestamp(lastUpdated)}</span>
             </div>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Discover our carefully prepared daily selection of fresh, delicious meals made with love and quality ingredients.
+              Enjoy your Delicious food 
             </p>
           </div>
         </div>
