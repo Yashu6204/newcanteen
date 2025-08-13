@@ -16,7 +16,7 @@ export const Header: React.FC<HeaderProps> = ({ isAdmin, onLoginClick, onLogout,
           <div className="w-10 h-10 bg-amber-600 rounded-full flex items-center justify-center">
             <span className="text-xl font-bold">🍽️</span>
           </div>
-          <h1 className="text-2xl font-bold">Golden Spoon Canteen</h1>
+          <h1 className="text-2xl font-bold">JNTUK CANTEEN</h1>
         </div>
         
         <div className="flex items-center space-x-4">
