@@ -7,8 +7,64 @@ import { MenuItem, User } from './types';
 
 // Demo data
 const initialMenuItems: MenuItem[] = [
+   
+   {
+    "id": "20",
+    "name": "Veg Fried Rice",
+    "price": 60,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
   {
-    "id": "1",
+    "id": "21",
+    "name": "Egg Fried Rice",
+    "price": 80,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "22",
+    "name": "Chicken Fried Rice",
+    "price": 100,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "23",
+    "name": "Veg Noodles",
+    "price": 60,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "24",
+    "name": "Egg Noodles",
+    "price": 80,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
+      {
+    "id": "25",
+    "name": "Chicken Noodles",
+    "price": 100,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
+     {
+    id: '39',
+    name: 'Masala Dosa',
+    price: 90,
+    category: 'breakfast',
+    description: 'Crispy dosa with spiced potato filling and chutneys',
+    available: true,
+  },
+     "id": "1",
     "name": "Veg Puff",
     "price": 25,
     "category": "bakery",
@@ -87,7 +143,79 @@ const initialMenuItems: MenuItem[] = [
     "description": "",
     "available": true
   },
+     {
+    id: '38',
+    name: 'Filter Coffee',
+    price: 30,
+    category: 'beverages',
+    description: 'Traditional South Indian filter coffee',
+    available: true,
+  },
+      {
+    "id": "25",
+    "name": "Chicken Noodles",
+    "price": 100,
+    "category": "main-course",
+    "description": "",
+    "available": true
+  },
   {
+    "id": "40",
+    "name": "Chocolate Milkshake",
+    "price": 60,
+    "category": "milk-shakes",
+    "description": "Rich and creamy chocolate shake",
+    "available": true
+  },
+  {
+    "id": "41",
+    "name": "Strawberry Milkshake",
+    "price": 65,
+    "category": "milk-shakes",
+    "description": "Sweet strawberry flavor blended with ice cream",
+    "available": true
+  },
+  {
+    "id": "42",
+    "name": "Vanilla Milkshake",
+    "price": 55,
+    "category": "milk-shakes",
+    "description": "Classic vanilla bean flavored shake",
+    "available": true
+  },
+  {
+    "id": "43",
+    "name": "Mango Lassi",
+    "price": 70,
+    "category": "milk-shakes",
+    "description": "A traditional yogurt-based mango drink",
+    "available": true
+  },
+  {
+    "id": "44",
+    "name": "Fresh Orange Juice",
+    "price": 40,
+    "category": "juices",
+    "description": "Freshly squeezed orange juice, no added sugar",
+    "available": true
+  },
+  {
+    "id": "45",
+    "name": "Watermelon Juice",
+    "price": 45,
+    "category": "juices",
+    "description": "Refreshing juice made from fresh watermelon",
+    "available": true
+  },
+  {
+    "id": "46",
+    "name": "Pineapple Juice",
+    "price": 40,
+    "category": "juices",
+    "description": "Tropical pineapple juice, perfect for a hot day",
+    "available": true
+  },
+     {
     "id": "11",
     "name": "Mango Bar",
     "price": 10,
@@ -158,55 +286,7 @@ const initialMenuItems: MenuItem[] = [
     "category": "ice-cream",
     "description": "",
     "available": true
-  },
-  {
-    "id": "20",
-    "name": "Veg Fried Rice",
-    "price": 60,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
-  {
-    "id": "21",
-    "name": "Egg Fried Rice",
-    "price": 80,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
-  {
-    "id": "22",
-    "name": "Chicken Fried Rice",
-    "price": 100,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
-  {
-    "id": "23",
-    "name": "Veg Noodles",
-    "price": 60,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
-  {
-    "id": "24",
-    "name": "Egg Noodles",
-    "price": 80,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
-  {
-    "id": "25",
-    "name": "Chicken Noodles",
-    "price": 100,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
+ };
   {
     "id": "26",
     "name": "Mountain Dew",
@@ -303,23 +383,7 @@ const initialMenuItems: MenuItem[] = [
     description: '',
     available: true
   },
-  {
-    id: '38',
-    name: 'Filter Coffee',
-    price: 30,
-    category: 'beverages',
-    description: 'Traditional South Indian filter coffee',
-    available: true,
-  },
-  {
-    id: '39',
-    name: 'Masala Dosa',
-    price: 90,
-    category: 'breakfast',
-    description: 'Crispy dosa with spiced potato filling and chutneys',
-    available: true,
-  },
-];
+ ];
 
 type Page = 'home' | 'login' | 'admin';
 
