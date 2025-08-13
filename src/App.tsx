@@ -287,7 +287,7 @@ const initialMenuItems: MenuItem[] = [
     "category": "ice-cream",
     "description": "",
     "available": true
- };
+  },
   {
     "id": "26",
     "name": "Mountain Dew",
