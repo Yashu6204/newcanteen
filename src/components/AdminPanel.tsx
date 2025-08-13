@@ -19,7 +19,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
     available: true,
   });
 
-  const categories = ['breakfast','ice-cream' ,'main-course', 'soft-drinks', 'snacks', 'beverages', 'bakery'];
+  const categories = ['breakfast','ice-cream' ,'main-course', 'soft-drinks', 'milk-shakes', 'juices', 'beverages', 'bakery'];
     useEffect(() => {
     setItems(menuItems);
   }, [menuItems]);
