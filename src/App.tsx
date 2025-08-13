@@ -296,12 +296,12 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "37",
-    "name": "Red Bull",
-    "price": 120,
-    "category": "soft-drinks",
-    "description": "",
-    "available": true
+    id: '37',
+    name: 'Red Bull',
+    price: 120,
+    category: 'soft-drinks',
+    description: '',
+    available: true
   },
   {
     id: '38',
