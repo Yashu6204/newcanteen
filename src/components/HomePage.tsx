@@ -34,7 +34,7 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
       <section className="bg-white shadow-sm border-b-4 border-amber-200">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="text-center">
-            <h2 className="text-4xl font-bold text-amber-800 mb-4">Today's Fresh Menu</h2>
+            <h2 className="text-4xl font-bold text-amber-800 mb-4">Today's Available  Menu</h2>
             <div className="flex items-center justify-center space-x-2 text-amber-600 mb-6">
               <Clock size={20} />
               <span className="text-lg">Last Updated: {formatTimestamp(lastUpdated)}</span>
@@ -109,8 +109,8 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
                 <Phone size={24} />
               </div>
               <h4 className="text-xl font-semibold mb-2">Phone</h4>
-              <p className="text-amber-200">+91 98765 43210</p>
-              <p className="text-amber-200">+91 87654 32109</p>
+              <p className="text-amber-200">+91 94910 66383</p>
+              <p className="text-amber-200">+91 70758 66383</p>
             </div>
             
             <div className="text-center">
@@ -118,8 +118,8 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
                 <Mail size={24} />
               </div>
               <h4 className="text-xl font-semibold mb-2">Email</h4>
-              <p className="text-amber-200">info@goldenspoon.com</p>
-              <p className="text-amber-200">orders@goldenspoon.com</p>
+              <p className="text-amber-200">info@jntukcanteen.com</p>
+              <p className="text-amber-200">order@jntukcanteen.com</p>
             </div>
             
             <div className="text-center">
@@ -128,13 +128,13 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
               </div>
               <h4 className="text-xl font-semibold mb-2">Location</h4>
               <p className="text-amber-200">Ground Floor, Main Building</p>
-              <p className="text-amber-200">Corporate Campus, City</p>
+              <p className="text-amber-200">Kakikanada </p>
             </div>
           </div>
           
           <div className="text-center mt-8 pt-8 border-t border-amber-700">
             <p className="text-amber-200">
-              Operating Hours: Monday - Friday, 8:00 AM - 6:00 PM | Saturday, 9:00 AM - 3:00 PM
+              Opening Hours: Monday - Saturday, 8:00 AM - 8:00 PM | Sunday, 9:00 AM - 9:00 PM
             </p>
           </div>
         </div>
