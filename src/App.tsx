@@ -332,16 +332,16 @@ function App() {
 
   const handleLogin = (username: string, password: string): boolean => {
     // Demo authentication - in production, use proper authentication
-    if (username === 'admin' && password === 'admin123') {
+    if (username === 'Admin' && password === 'Admin123') {
       setUser({
-        username: 'admin',
+        username: 'Admin',
         isAuthenticated: true,
       });
       setCurrentPage('admin');
       setLoginError('');
       return true;
     } else {
-      setLoginError('Invalid username or password. Try admin/admin123');
+      setLoginError('Invalid username or password. Try Admin/Admin123');
       return false;
     }
   };
