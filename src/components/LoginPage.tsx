@@ -99,11 +99,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onBack, error }) 
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-500">
-            Demo Credentials: admin / admin123
-          </p>
-        </div>
+        
       </div>
     </div>
   );
