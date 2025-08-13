@@ -7,8 +7,6 @@ import { MenuItem, User } from './types';
 
 // Demo data
 const initialMenuItems: MenuItem[] = [
-[
-  [
   {
     "id": "1",
     "name": "Veg Puff",
