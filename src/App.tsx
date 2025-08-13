@@ -163,7 +163,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "20",
     "name": "Veg Fried Rice",
     "price": 60,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
@@ -171,7 +171,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "21",
     "name": "Egg Fried Rice",
     "price": 80,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
@@ -179,7 +179,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "22",
     "name": "Chicken Fried Rice",
     "price": 100,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
@@ -187,7 +187,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "23",
     "name": "Veg Noodles",
     "price": 60,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
@@ -195,7 +195,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "24",
     "name": "Egg Noodles",
     "price": 80,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
@@ -203,7 +203,7 @@ const initialMenuItems: MenuItem[] = [
     "id": "25",
     "name": "Chicken Noodles",
     "price": 100,
-    "category": "fast-foods",
+    "category": "main-course",
     "description": "",
     "available": true
   },
