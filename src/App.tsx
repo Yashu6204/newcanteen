@@ -7,32 +7,305 @@ import { MenuItem, User } from './types';
 
 // Demo data
 const initialMenuItems: MenuItem[] = [
+[
   {
-    id: '1',
-    name: 'Classic Burger',
-    price: 120,
-    category: 'main-course',
-    description: 'Juicy beef patty with fresh lettuce, tomato, and cheese',
-    available: true,
+    "id": "1",
+    "name": "Veg Puff",
+    "price": 25,
+    "category": "bakery",
+    "description": "",
+    "available": true
   },
   {
-    id: '2',
-    name: 'Margherita Pizza',
-    price: 200,
-    category: 'main-course',
-    description: 'Fresh mozzarella, basil, and tomato sauce on thin crust',
-    available: true,
+    "id": "2",
+    "name": "Egg Puff",
+    "price": 30,
+    "category": "bakery",
+    "description": "",
+    "available": true
   },
   {
-    id: '3',
-    name: 'Caesar Salad',
-    price: 80,
-    category: 'snacks',
-    description: 'Crisp romaine lettuce with Caesar dressing and croutons',
-    available: false,
+    "id": "3",
+    "name": "Chicken Puff",
+    "price": 35,
+    "category": "bakery",
+    "description": "",
+    "available": true
   },
   {
-    id: '4',
+    "id": "4",
+    "name": "Aloo Samosa",
+    "price": 10,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "5",
+    "name": "Sweet Corn Samosa",
+    "price": 15,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "6",
+    "name": "Cup Cakes",
+    "price": 20,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "7",
+    "name": "Cream Bun",
+    "price": 20,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "8",
+    "name": "Roll Cake",
+    "price": 15,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "9",
+    "name": "Aloo Bonda",
+    "price": 10,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "10",
+    "name": "Dil Pasand",
+    "price": 20,
+    "category": "bakery",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "11",
+    "name": "Mango Bar",
+    "price": 10,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "12",
+    "name": "Orange Bar",
+    "price": 20,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "13",
+    "name": "Choco Bar",
+    "price": 25,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "14",
+    "name": "Vanilla Cone",
+    "price": 35,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "15",
+    "name": "Chocolate Cone",
+    "price": 35,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "16",
+    "name": "Butterscotch Cone",
+    "price": 25,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "17",
+    "name": "Black Current Cone",
+    "price": 25,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "18",
+    "name": "Chocolate Cup",
+    "price": 45,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "19",
+    "name": "Butterscotch Cup",
+    "price": 45,
+    "category": "ice-cream",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "20",
+    "name": "Veg Fried Rice",
+    "price": 60,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "21",
+    "name": "Egg Fried Rice",
+    "price": 80,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "22",
+    "name": "Chicken Fried Rice",
+    "price": 100,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "23",
+    "name": "Veg Noodles",
+    "price": 60,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "24",
+    "name": "Egg Noodles",
+    "price": 80,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "25",
+    "name": "Chicken Noodles",
+    "price": 100,
+    "category": "fast-foods",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "26",
+    "name": "Mountain Dew",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "27",
+    "name": "Sprite",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "28",
+    "name": "Thumbs Up",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "29",
+    "name": "Mazaa",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "30",
+    "name": "7 Up",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "31",
+    "name": "Mirinda",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "32",
+    "name": "Pulpy Orange",
+    "price": 30,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "33",
+    "name": "Fanta",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "34",
+    "name": "Pepsi",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "35",
+    "name": "Limca",
+    "price": 20,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "36",
+    "name": "Badam Milk",
+    "price": 30,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    "id": "37",
+    "name": "Red Bull",
+    "price": 120,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
+  },
+  {
+    id: '38',
     name: 'Filter Coffee',
     price: 30,
     category: 'beverages',
@@ -40,15 +313,7 @@ const initialMenuItems: MenuItem[] = [
     available: true,
   },
   {
-    id: '5',
-    name: 'Chocolate Brownie',
-    price: 60,
-    category: 'desserts',
-    description: 'Rich chocolate brownie with vanilla ice cream',
-    available: true,
-  },
-  {
-    id: '6',
+    id: '39',
     name: 'Masala Dosa',
     price: 90,
     category: 'breakfast',
