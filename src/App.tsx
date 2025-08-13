@@ -9,7 +9,7 @@ import { MenuItem, User } from './types';
 const initialMenuItems: MenuItem[] = [
    
    {
-    "id": "20",
+    "id": "1",
     "name": "Veg Fried Rice",
     "price": 60,
     "category": "main-course",
@@ -17,7 +17,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "21",
+    "id": "2",
     "name": "Egg Fried Rice",
     "price": 80,
     "category": "main-course",
@@ -25,7 +25,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "22",
+    "id": "3",
     "name": "Chicken Fried Rice",
     "price": 100,
     "category": "main-course",
@@ -33,7 +33,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "23",
+    "id": "4",
     "name": "Veg Noodles",
     "price": 60,
     "category": "main-course",
@@ -41,7 +41,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "24",
+    "id": "5",
     "name": "Egg Noodles",
     "price": 80,
     "category": "main-course",
@@ -49,7 +49,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
       {
-    "id": "25",
+    "id": "6",
     "name": "Chicken Noodles",
     "price": 100,
     "category": "main-course",
@@ -57,7 +57,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
      {
-    id: '39',
+    id: '7',
     name: 'Masala Dosa',
     price: 90,
     category: 'breakfast',
@@ -65,7 +65,7 @@ const initialMenuItems: MenuItem[] = [
     available: true,
   },
    {
-     "id": "1",
+     "id": "8",
     "name": "Veg Puff",
     "price": 25,
     "category": "bakery",
@@ -73,7 +73,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "2",
+    "id": "9",
     "name": "Egg Puff",
     "price": 30,
     "category": "bakery",
@@ -81,7 +81,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "3",
+    "id": "10",
     "name": "Chicken Puff",
     "price": 35,
     "category": "bakery",
@@ -89,7 +89,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "4",
+    "id": "11",
     "name": "Aloo Samosa",
     "price": 10,
     "category": "bakery",
@@ -97,7 +97,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "5",
+    "id": "12",
     "name": "Sweet Corn Samosa",
     "price": 15,
     "category": "bakery",
@@ -105,7 +105,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "6",
+    "id": "13",
     "name": "Cup Cakes",
     "price": 20,
     "category": "bakery",
@@ -113,7 +113,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "7",
+    "id": "14",
     "name": "Cream Bun",
     "price": 20,
     "category": "bakery",
@@ -121,7 +121,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "8",
+    "id": "15",
     "name": "Roll Cake",
     "price": 15,
     "category": "bakery",
@@ -129,7 +129,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "9",
+    "id": "16",
     "name": "Aloo Bonda",
     "price": 10,
     "category": "bakery",
@@ -137,31 +137,16 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "10",
+    "id": "17",
     "name": "Dil Pasand",
     "price": 20,
     "category": "bakery",
     "description": "",
     "available": true
   },
-     {
-    id: '38',
-    name: 'Filter Coffee',
-    price: 30,
-    category: 'beverages',
-    description: 'Traditional South Indian filter coffee',
-    available: true,
-  },
-      {
-    "id": "25",
-    "name": "Chicken Noodles",
-    "price": 100,
-    "category": "main-course",
-    "description": "",
-    "available": true
-  },
+   
   {
-    "id": "40",
+    "id": "18",
     "name": "Chocolate Milkshake",
     "price": 60,
     "category": "milk-shakes",
@@ -169,7 +154,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "41",
+    "id": "19",
     "name": "Strawberry Milkshake",
     "price": 65,
     "category": "milk-shakes",
@@ -177,7 +162,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "42",
+    "id": "20",
     "name": "Vanilla Milkshake",
     "price": 55,
     "category": "milk-shakes",
@@ -185,7 +170,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "43",
+    "id": "21",
     "name": "Mango Lassi",
     "price": 70,
     "category": "milk-shakes",
@@ -193,7 +178,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "44",
+    "id": "22",
     "name": "Fresh Orange Juice",
     "price": 40,
     "category": "juices",
@@ -201,7 +186,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "45",
+    "id": "23",
     "name": "Watermelon Juice",
     "price": 45,
     "category": "juices",
@@ -209,15 +194,15 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "46",
+    "id": "24",
     "name": "Pineapple Juice",
     "price": 40,
     "category": "juices",
     "description": "Tropical pineapple juice, perfect for a hot day",
     "available": true
   },
-     {
-    "id": "11",
+  {
+    "id": "25",
     "name": "Mango Bar",
     "price": 10,
     "category": "ice-cream",
@@ -225,7 +210,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "12",
+    "id": "26",
     "name": "Orange Bar",
     "price": 20,
     "category": "ice-cream",
@@ -233,7 +218,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "13",
+    "id": "27",
     "name": "Choco Bar",
     "price": 25,
     "category": "ice-cream",
@@ -241,7 +226,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "14",
+    "id": "28",
     "name": "Vanilla Cone",
     "price": 35,
     "category": "ice-cream",
@@ -249,7 +234,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "15",
+    "id": "29",
     "name": "Chocolate Cone",
     "price": 35,
     "category": "ice-cream",
@@ -257,7 +242,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "16",
+    "id": "30",
     "name": "Butterscotch Cone",
     "price": 25,
     "category": "ice-cream",
@@ -265,7 +250,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "17",
+    "id": "31",
     "name": "Black Current Cone",
     "price": 25,
     "category": "ice-cream",
@@ -273,7 +258,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "18",
+    "id": "32",
     "name": "Chocolate Cup",
     "price": 45,
     "category": "ice-cream",
@@ -281,7 +266,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "19",
+    "id": "33",
     "name": "Butterscotch Cup",
     "price": 45,
     "category": "ice-cream",
@@ -289,7 +274,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "26",
+    "id": "34",
     "name": "Mountain Dew",
     "price": 20,
     "category": "soft-drinks",
@@ -297,7 +282,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "27",
+    "id": "35",
     "name": "Sprite",
     "price": 20,
     "category": "soft-drinks",
@@ -305,7 +290,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "28",
+    "id": "36",
     "name": "Thumbs Up",
     "price": 20,
     "category": "soft-drinks",
@@ -313,7 +298,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "29",
+    "id": "37",
     "name": "Mazaa",
     "price": 20,
     "category": "soft-drinks",
@@ -321,7 +306,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "30",
+    "id": "38",
     "name": "7 Up",
     "price": 20,
     "category": "soft-drinks",
@@ -329,7 +314,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "31",
+    "id": "39",
     "name": "Mirinda",
     "price": 20,
     "category": "soft-drinks",
@@ -337,7 +322,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "32",
+    "id": "40",
     "name": "Pulpy Orange",
     "price": 30,
     "category": "soft-drinks",
@@ -345,7 +330,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "33",
+    "id": "41",
     "name": "Fanta",
     "price": 20,
     "category": "soft-drinks",
@@ -353,7 +338,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "34",
+    "id": "42",
     "name": "Pepsi",
     "price": 20,
     "category": "soft-drinks",
@@ -361,7 +346,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "35",
+    "id": "43",
     "name": "Limca",
     "price": 20,
     "category": "soft-drinks",
@@ -369,7 +354,7 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    "id": "36",
+    "id": "44",
     "name": "Badam Milk",
     "price": 30,
     "category": "soft-drinks",
@@ -377,12 +362,12 @@ const initialMenuItems: MenuItem[] = [
     "available": true
   },
   {
-    id: '37',
-    name: 'Red Bull',
-    price: 120,
-    category: 'soft-drinks',
-    description: '',
-    available: true
+    "id": "45",
+    "name": "Red Bull",
+    "price": 120,
+    "category": "soft-drinks",
+    "description": "",
+    "available": true
   },
  ];
 
