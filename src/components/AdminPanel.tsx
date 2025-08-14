@@ -19,7 +19,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
     available: true,
   });
 
-  const categories = ['breakfast', 'main-course', 'soft-drinks', 'fast-foods', 'beverages', 'bakery','ice-creams'];
+  const categories = ['breakfast', 'main-course', 'soft-drinks', 'fast-foods', 'beverages', 'bakery','ice-cream'];
 
   const toggleAvailability = (id: string) => {
     const updatedItems = items.map(item =>
