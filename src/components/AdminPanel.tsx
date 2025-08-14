@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Plus, Edit2, Save, X, Trash2 } from 'lucide-react';
 import { MenuItem } from '../types';
 
@@ -19,10 +19,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
     available: true,
   });
 
-  const categories = ['breakfast','ice-cream' ,'main-course', 'soft-drinks', 'milk-shakes', 'juices', 'beverages', 'bakery'];
-    useEffect(() => {
-    setItems(menuItems);
-  }, [menuItems]);
+  const categories = ['breakfast', 'main-course', 'soft-drinks', 'snacks', 'beverages', 'bakery'];
 
   const toggleAvailability = (id: string) => {
     const updatedItems = items.map(item =>
@@ -304,7 +301,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
         {items.length === 0 && (
           <div className="text-center py-12">
             <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
-              <div className="text-6xl mb-4">🍽️</div>
+              <div className="text-6xl mb-4">🍽</div>
               <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Menu Items</h3>
               <p className="text-gray-500 mb-4">Start by adding your first menu item!</p>
               <button
