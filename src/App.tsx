@@ -462,15 +462,14 @@ function App() {
       if (querySnapshot.empty) {
         console.log('Initializing Firestore with default menu items...');
         
-        const batch = initialMenuItems.map(async (item) => {
-          return addDoc(collection(db, 'menuItems'), {
+        // Add items one by one to avoid overwhelming Firestore
+        for (const item of initialMenuItems) {
+          await addDoc(collection(db, 'menuItems'), {
             ...item,
             createdAt: serverTimestamp(),
             updatedAt: serverTimestamp()
           });
-        });
-        
-        await Promise.all(batch);
+        }
         
         // Set initial metadata
         await setDoc(doc(db, 'metadata', 'lastUpdated'), {
@@ -482,7 +481,11 @@ function App() {
       }
     } catch (error) {
       console.error('Error initializing Firestore: ', error);
-      setError('Failed to initialize data. Please refresh the page.');
+      console.log('Using local data as fallback');
+      // Use local data as fallback
+      setMenuItems(initialMenuItems);
+      setLastUpdated(new Date());
+      setLoading(false);
     }
   };
 
@@ -518,10 +521,15 @@ function App() {
           });
           
           setMenuItems(items);
+          setLoading(false);
           console.log('Menu items updated from Firestore:', items.length, 'items');
         }, (error) => {
           console.error('Error listening to menu items: ', error);
-          setError('Failed to sync menu data. Please refresh the page.');
+          console.log('Using local data as fallback');
+          // Use local data as fallback
+          setMenuItems(initialMenuItems);
+          setLastUpdated(new Date());
+          setLoading(false);
         });
         
         // Set up real-time listener for metadata
@@ -539,13 +547,16 @@ function App() {
           }
         }, (error) => {
           console.error('Error listening to metadata: ', error);
+          // Set current time as fallback
+          setLastUpdated(new Date());
         });
-        
-        setLoading(false);
         
       } catch (error) {
         console.error('Error setting up real-time listeners: ', error);
-        setError('Failed to connect to real-time updates. Please refresh the page.');
+        console.log('Using local data as fallback');
+        // Use local data as fallback
+        setMenuItems(initialMenuItems);
+        setLastUpdated(new Date());
         setLoading(false);
       }
     };
