@@ -1,4 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { 
+  collection, 
+  doc, 
+  onSnapshot, 
+  addDoc, 
+  updateDoc, 
+  deleteDoc, 
+  setDoc, 
+  getDocs,
+  serverTimestamp,
+  query,
+  orderBy
+} from 'firebase/firestore';
+import { db } from './firebase';
 import { Header } from './components/Header';
 import { HomePage } from './components/HomePage';
 import { LoginPage } from './components/LoginPage';
@@ -327,8 +341,10 @@ function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
   const [user, setUser] = useState<User | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
-  const [lastUpdated, setLastUpdated] = useState<Date>(new Date());
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [loginError, setLoginError] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string>('');
 
   const handleLogin = (username: string, password: string): boolean => {
     // Demo authentication - in production, use proper authentication
@@ -351,36 +367,242 @@ function App() {
     setCurrentPage('home');
   };
 
-  const handleUpdateMenu = (updatedItems: MenuItem[]) => {
-    setMenuItems(updatedItems);
-    setLastUpdated(new Date());
-    // Save to localStorage for persistence
-    localStorage.setItem('canteenMenuItems', JSON.stringify(updatedItems));
-    localStorage.setItem('canteenLastUpdated', new Date().toISOString());
+  // Firebase functions for real-time operations
+  const handleAddMenuItem = async (item: Omit<MenuItem, 'id'>) => {
+    try {
+      const docRef = await addDoc(collection(db, 'menuItems'), {
+        ...item,
+        createdAt: serverTimestamp(),
+        updatedAt: serverTimestamp()
+      });
+      
+      // Update metadata
+      await setDoc(doc(db, 'metadata', 'lastUpdated'), {
+        timestamp: serverTimestamp(),
+        updatedBy: user?.username || 'Admin'
+      });
+      
+      console.log('Menu item added with ID: ', docRef.id);
+    } catch (error) {
+      console.error('Error adding menu item: ', error);
+      setError('Failed to add menu item. Please try again.');
+    }
   };
 
-  // Load menu items from localStorage on component mount
+  const handleUpdateMenuItem = async (id: string, updates: Partial<MenuItem>) => {
+    try {
+      const itemRef = doc(db, 'menuItems', id);
+      await updateDoc(itemRef, {
+        ...updates,
+        updatedAt: serverTimestamp()
+      });
+      
+      // Update metadata
+      await setDoc(doc(db, 'metadata', 'lastUpdated'), {
+        timestamp: serverTimestamp(),
+        updatedBy: user?.username || 'Admin'
+      });
+      
+      console.log('Menu item updated: ', id);
+    } catch (error) {
+      console.error('Error updating menu item: ', error);
+      setError('Failed to update menu item. Please try again.');
+    }
+  };
+
+  const handleDeleteMenuItem = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'menuItems', id));
+      
+      // Update metadata
+      await setDoc(doc(db, 'metadata', 'lastUpdated'), {
+        timestamp: serverTimestamp(),
+        updatedBy: user?.username || 'Admin'
+      });
+      
+      console.log('Menu item deleted: ', id);
+    } catch (error) {
+      console.error('Error deleting menu item: ', error);
+      setError('Failed to delete menu item. Please try again.');
+    }
+  };
+
+  const handleBulkUpdateMenu = async (updatedItems: MenuItem[]) => {
+    try {
+      // This is for backward compatibility with the existing AdminPanel
+      // In practice, individual updates are preferred for real-time sync
+      const batch = updatedItems.map(async (item) => {
+        const itemRef = doc(db, 'menuItems', item.id);
+        return updateDoc(itemRef, {
+          ...item,
+          updatedAt: serverTimestamp()
+        });
+      });
+      
+      await Promise.all(batch);
+      
+      // Update metadata
+      await setDoc(doc(db, 'metadata', 'lastUpdated'), {
+        timestamp: serverTimestamp(),
+        updatedBy: user?.username || 'Admin'
+      });
+      
+      console.log('Menu bulk updated successfully');
+    } catch (error) {
+      console.error('Error bulk updating menu: ', error);
+      setError('Failed to update menu. Please try again.');
+    }
+  };
+
+  // Initialize Firestore with default data if empty
+  const initializeFirestore = async () => {
+    try {
+      const querySnapshot = await getDocs(collection(db, 'menuItems'));
+      
+      if (querySnapshot.empty) {
+        console.log('Initializing Firestore with default menu items...');
+        
+        const batch = initialMenuItems.map(async (item) => {
+          return addDoc(collection(db, 'menuItems'), {
+            ...item,
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+          });
+        });
+        
+        await Promise.all(batch);
+        
+        // Set initial metadata
+        await setDoc(doc(db, 'metadata', 'lastUpdated'), {
+          timestamp: serverTimestamp(),
+          updatedBy: 'System'
+        });
+        
+        console.log('Firestore initialized successfully');
+      }
+    } catch (error) {
+      console.error('Error initializing Firestore: ', error);
+      setError('Failed to initialize data. Please refresh the page.');
+    }
+  };
+
   useEffect(() => {
-    const savedItems = localStorage.getItem('canteenMenuItems');
-    const savedLastUpdated = localStorage.getItem('canteenLastUpdated');
-    
-    if (savedItems) {
+    let unsubscribeItems: (() => void) | undefined;
+    let unsubscribeMetadata: (() => void) | undefined;
+
+    const setupRealtimeListeners = async () => {
       try {
-        const parsedItems = JSON.parse(savedItems);
-        setMenuItems(parsedItems);
+        setLoading(true);
+        
+        // Initialize Firestore if needed
+        await initializeFirestore();
+        
+        // Set up real-time listener for menu items
+        const itemsQuery = query(
+          collection(db, 'menuItems'),
+          orderBy('createdAt', 'asc')
+        );
+        
+        unsubscribeItems = onSnapshot(itemsQuery, (snapshot) => {
+          const items: MenuItem[] = [];
+          snapshot.forEach((doc) => {
+            const data = doc.data();
+            items.push({
+              id: doc.id,
+              name: data.name,
+              price: data.price,
+              category: data.category,
+              description: data.description,
+              available: data.available
+            });
+          });
+          
+          setMenuItems(items);
+          console.log('Menu items updated from Firestore:', items.length, 'items');
+        }, (error) => {
+          console.error('Error listening to menu items: ', error);
+          setError('Failed to sync menu data. Please refresh the page.');
+        });
+        
+        // Set up real-time listener for metadata
+        unsubscribeMetadata = onSnapshot(doc(db, 'metadata', 'lastUpdated'), (doc) => {
+          if (doc.exists()) {
+            const data = doc.data();
+            if (data.timestamp) {
+              // Convert Firestore timestamp to Date
+              const timestamp = data.timestamp.toDate ? data.timestamp.toDate() : new Date(data.timestamp);
+              setLastUpdated(timestamp);
+              console.log('Last updated timestamp synced:', timestamp);
+            }
+          } else {
+            setLastUpdated(new Date());
+          }
+        }, (error) => {
+          console.error('Error listening to metadata: ', error);
+        });
+        
+        setLoading(false);
+        
       } catch (error) {
-        console.error('Error loading saved menu items:', error);
+        console.error('Error setting up real-time listeners: ', error);
+        setError('Failed to connect to real-time updates. Please refresh the page.');
+        setLoading(false);
       }
-    }
+    };
+
+    setupRealtimeListeners();
     
-    if (savedLastUpdated) {
-      try {
-        setLastUpdated(new Date(savedLastUpdated));
-      } catch (error) {
-        console.error('Error loading last updated date:', error);
+    // Cleanup listeners on unmount
+    return () => {
+      if (unsubscribeItems) {
+        unsubscribeItems();
       }
-    }
+      if (unsubscribeMetadata) {
+        unsubscribeMetadata();
+      }
+    };
   }, []);
+
+  // Clear error after 5 seconds
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError('');
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [error]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold text-amber-800 mb-2">Loading Menu...</h2>
+          <p className="text-amber-600">Connecting to real-time updates</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-red-50 to-orange-50 flex items-center justify-center">
+        <div className="text-center bg-white p-8 rounded-lg shadow-lg max-w-md">
+          <div className="text-6xl mb-4">⚠️</div>
+          <h2 className="text-2xl font-semibold text-red-800 mb-2">Connection Error</h2>
+          <p className="text-red-600 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors"
+          >
+            Refresh Page
+          </button>
+        </div>
+      </div>
+    );
+  }
+    
 
   const renderCurrentPage = () => {
     switch (currentPage) {
@@ -396,7 +618,10 @@ function App() {
         return (
           <AdminPanel
             menuItems={menuItems}
-            onUpdateMenu={handleUpdateMenu}
+            onUpdateMenu={handleBulkUpdateMenu}
+            onAddMenuItem={handleAddMenuItem}
+            onUpdateMenuItem={handleUpdateMenuItem}
+            onDeleteMenuItem={handleDeleteMenuItem}
           />
         );
       default:
@@ -404,6 +629,7 @@ function App() {
           <HomePage
             menuItems={menuItems}
             lastUpdated={lastUpdated}
+            loading={loading}
           />
         );
     }
@@ -411,6 +637,14 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Real-time connection indicator */}
+      <div className="fixed top-4 right-4 z-50">
+        <div className="bg-green-100 border border-green-300 rounded-full px-3 py-1 flex items-center space-x-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <span className="text-green-700 text-xs font-medium">Live Updates</span>
+        </div>
+      </div>
+      
       {currentPage !== 'login' && (
         <Header
           isAdmin={!!user?.isAuthenticated}

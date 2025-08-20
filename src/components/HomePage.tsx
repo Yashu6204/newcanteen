@@ -4,10 +4,11 @@ import { MenuItem } from '../types';
 
 interface HomePageProps {
   menuItems: MenuItem[];
-  lastUpdated: Date;
+  lastUpdated: Date | null;
+  loading?: boolean;
 }
 
-export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) => {
+export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated, loading = false }) => {
   const availableItems = menuItems.filter(item => item.available);
   const categorizedItems = availableItems.reduce((acc, item) => {
     if (!acc[item.category]) {
@@ -28,19 +29,38 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
     });
   };
 
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-amber-600 mx-auto mb-4"></div>
+          <h2 className="text-2xl font-semibold text-amber-800 mb-2">Loading Fresh Menu...</h2>
+          <p className="text-amber-600">Getting the latest updates for you</p>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
       {/* Hero Section */}
       <section className="bg-white shadow-sm border-b-4 border-amber-200">
         <div className="max-w-6xl mx-auto px-4 py-8">
           <div className="text-center">
-            <h2 className="text-4xl font-bold text-amber-800 mb-4">Today's Available  Menu</h2>
-            <div className="flex items-center justify-center space-x-2 text-amber-600 mb-6">
+            <h2 className="text-4xl font-bold text-amber-800 mb-4">
+              Today's Available Menu
+              <span className="inline-flex items-center ml-3">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm text-green-600 ml-2 font-normal">Live Updates</span>
+              </span>
+            </h2>
+            {lastUpdated && (
+              <div className="flex items-center justify-center space-x-2 text-amber-600 mb-6">
               <Clock size={20} />
               <span className="text-lg">Last Updated: {formatTimestamp(lastUpdated)}</span>
             </div>
+            )}
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Enjoy your Delicious food 
+              Enjoy your delicious food with real-time menu updates across all devices
             </p>
           </div>
         </div>
@@ -53,8 +73,12 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
             <div className="text-center py-12">
               <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
                 <div className="text-6xl mb-4">🍽️</div>
-                <h3 className="text-2xl font-semibold text-gray-700 mb-2">Menu Coming Soon</h3>
-                <p className="text-gray-500">Our kitchen is preparing something special for you!</p>
+                <h3 className="text-2xl font-semibold text-gray-700 mb-2">No Items Available</h3>
+                <p className="text-gray-500">Our kitchen is updating the menu. Check back in a moment!</p>
+                <div className="mt-4 flex items-center justify-center space-x-2 text-green-600">
+                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm">Waiting for live updates...</span>
+                </div>
               </div>
             </div>
           ) : (
@@ -79,7 +103,7 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
                         )}
                         <div className="flex justify-between items-center">
                           <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                            Available Now
+                            ✓ Available Now
                           </span>
                           <span className="text-sm text-gray-500 capitalize">{item.category}</span>
                         </div>
@@ -135,6 +159,9 @@ export const HomePage: React.FC<HomePageProps> = ({ menuItems, lastUpdated }) =>
           <div className="text-center mt-8 pt-8 border-t border-amber-700">
             <p className="text-amber-200">
               Opening Hours: Monday - Saturday, 8:00 AM - 8:00 PM | Sunday, 9:00 AM - 9:00 PM
+            </p>
+            <p className="text-amber-300 text-sm mt-2">
+              🔄 Menu updates automatically across all devices in real-time
             </p>
           </div>
         </div>

@@ -5,12 +5,21 @@ import { MenuItem } from '../types';
 interface AdminPanelProps {
   menuItems: MenuItem[];
   onUpdateMenu: (items: MenuItem[]) => void;
+  onAddMenuItem: (item: Omit<MenuItem, 'id'>) => Promise<void>;
+  onUpdateMenuItem: (id: string, updates: Partial<MenuItem>) => Promise<void>;
+  onDeleteMenuItem: (id: string) => Promise<void>;
 }
 
-export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu }) => {
-  const [items, setItems] = useState<MenuItem[]>(menuItems);
+export const AdminPanel: React.FC<AdminPanelProps> = ({ 
+  menuItems, 
+  onUpdateMenu, 
+  onAddMenuItem, 
+  onUpdateMenuItem, 
+  onDeleteMenuItem 
+}) => {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [newItem, setNewItem] = useState({
     name: '',
     price: '',
@@ -21,18 +30,19 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
 
   const categories = ['breakfast', 'main-course', 'soft-drinks', 'fast-foods', 'beverages', 'bakery','ice-cream'];
 
-  const toggleAvailability = (id: string) => {
-    const updatedItems = items.map(item =>
-      item.id === id ? { ...item, available: !item.available } : item
-    );
-    setItems(updatedItems);
+  const toggleAvailability = async (id: string) => {
+    const item = menuItems.find(item => item.id === id);
+    if (item) {
+      setLoading(true);
+      await onUpdateMenuItem(id, { available: !item.available });
+      setLoading(false);
+    }
   };
 
-  const handleAddItem = () => {
+  const handleAddItem = async () => {
     if (!newItem.name || !newItem.price) return;
 
-    const item: MenuItem = {
-      id: Date.now().toString(),
+    const item: Omit<MenuItem, 'id'> = {
       name: newItem.name,
       price: parseFloat(newItem.price),
       category: newItem.category,
@@ -40,8 +50,8 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
       available: newItem.available,
     };
 
-    const updatedItems = [...items, item];
-    setItems(updatedItems);
+    setLoading(true);
+    await onAddMenuItem(item);
     setNewItem({
       name: '',
       price: '',
@@ -50,29 +60,44 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
       available: true,
     });
     setShowAddForm(false);
+    setLoading(false);
   };
 
-  const handleEditItem = (id: string, field: string, value: any) => {
-    const updatedItems = items.map(item =>
-      item.id === id ? { ...item, [field]: value } : item
-    );
-    setItems(updatedItems);
+  const handleEditItem = async (id: string, field: string, value: any) => {
+    setLoading(true);
+    await onUpdateMenuItem(id, { [field]: value });
+    setLoading(false);
   };
 
-  const handleDeleteItem = (id: string) => {
-    const updatedItems = items.filter(item => item.id !== id);
-    setItems(updatedItems);
+  const handleDeleteItem = async (id: string) => {
+    if (window.confirm('Are you sure you want to delete this item?')) {
+      setLoading(true);
+      await onDeleteMenuItem(id);
+      setLoading(false);
+    }
   };
 
-  const handleUpdateMenu = () => {
-    onUpdateMenu(items);
+  const handleUpdateMenu = async () => {
+    setLoading(true);
+    await onUpdateMenu(menuItems);
+    setLoading(false);
     alert('Menu updated successfully!');
   };
 
-  const getAvailableCount = () => items.filter(item => item.available).length;
+  const getAvailableCount = () => menuItems.filter(item => item.available).length;
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Loading overlay */}
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg p-6 flex items-center space-x-4">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-amber-600"></div>
+            <span className="text-lg font-medium">Updating menu...</span>
+          </div>
+        </div>
+      )}
+      
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex justify-between items-center">
@@ -86,6 +111,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
               <button
                 onClick={() => setShowAddForm(true)}
                 className="flex items-center space-x-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                disabled={loading}
               >
                 <Plus size={20} />
                 <span>Add Item</span>
@@ -93,6 +119,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
               <button
                 onClick={handleUpdateMenu}
                 className="flex items-center space-x-2 bg-amber-600 text-white px-4 py-2 rounded-lg hover:bg-amber-700 transition-colors"
+                disabled={loading}
               >
                 <Save size={20} />
                 <span>Update Menu</span>
@@ -195,7 +222,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
       {/* Menu Items Grid */}
       <div className="max-w-7xl mx-auto px-4 py-8">
         {categories.map(category => {
-          const categoryItems = items.filter(item => item.category === category);
+          const categoryItems = menuItems.filter(item => item.category === category);
           if (categoryItems.length === 0) return null;
 
           return (
@@ -228,12 +255,14 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
                         <button
                           onClick={() => setEditingId(editingId === item.id ? null : item.id)}
                           className="text-blue-600 hover:text-blue-800"
+                          disabled={loading}
                         >
                           <Edit2 size={16} />
                         </button>
                         <button
                           onClick={() => handleDeleteItem(item.id)}
                           className="text-red-600 hover:text-red-800"
+                          disabled={loading}
                         >
                           <Trash2 size={16} />
                         </button>
@@ -288,6 +317,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
                           ? 'bg-green-600 text-white hover:bg-green-700'
                           : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
                       }`}
+                      disabled={loading}
                     >
                       {item.available ? '✓ Available' : 'Not Available'}
                     </button>
@@ -298,7 +328,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
           );
         })}
 
-        {items.length === 0 && (
+        {menuItems.length === 0 && (
           <div className="text-center py-12">
             <div className="bg-white rounded-lg shadow-md p-8 max-w-md mx-auto">
               <div className="text-6xl mb-4">🍽</div>
@@ -307,6 +337,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({ menuItems, onUpdateMenu 
               <button
                 onClick={() => setShowAddForm(true)}
                 className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                disabled={loading}
               >
                 Add First Item
               </button>
