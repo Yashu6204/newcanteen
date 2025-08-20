@@ -481,11 +481,8 @@ function App() {
       }
     } catch (error) {
       console.error('Error initializing Firestore: ', error);
-      console.log('Using local data as fallback');
-      // Use local data as fallback
-      setMenuItems(initialMenuItems);
-      setLastUpdated(new Date());
-      setLoading(false);
+      console.log('Firestore permissions error - using local data as fallback');
+      throw error; // Re-throw to be handled by setupRealtimeListeners
     }
   };
 
@@ -552,8 +549,8 @@ function App() {
         });
         
       } catch (error) {
-        console.error('Error setting up real-time listeners: ', error);
-        console.log('Using local data as fallback');
+        console.error('Firestore connection failed: ', error);
+        console.log('Running in local mode - Firebase features disabled');
         // Use local data as fallback
         setMenuItems(initialMenuItems);
         setLastUpdated(new Date());
